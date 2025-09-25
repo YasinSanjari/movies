@@ -7,6 +7,7 @@ import {
   Box,
 } from "@mui/material";
 import type { Movie } from "../types/tmdb";
+import { useMovieModal } from "../hooks/use-movie-modal";
 
 const genreMap: { [key: number]: string } = {
   28: "Action",
@@ -32,6 +33,7 @@ const genreMap: { [key: number]: string } = {
 
 const MovieCard = ({ movie }: { movie: Movie }) => {
   const { title, vote_average, poster_path, genre_ids } = movie;
+  const { open } = useMovieModal();
 
   const getGenre = () => {
     if (!genre_ids || genre_ids.length === 0) return "Movie";
@@ -42,6 +44,8 @@ const MovieCard = ({ movie }: { movie: Movie }) => {
 
   return (
     <Card
+      onClick={() => open(movie.id)}
+      className="cursor-pointer"
       elevation={0}
       sx={{
         backgroundColor: "#0f0d23",

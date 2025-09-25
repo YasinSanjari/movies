@@ -12,6 +12,7 @@ import Hero from "./components/Hero";
 import MovieCard from "./components/MovieCard";
 import Trending from "./components/Trending";
 import Pager from "./components/Pager";
+import MovieModal from "./components/movie/MovieModal";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -84,6 +85,7 @@ function App() {
             )}
         </Box>
       </Container>
+      <MovieModal />
     </Box>
   );
 }
