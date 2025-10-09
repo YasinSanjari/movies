@@ -38,10 +38,10 @@ const Hero = ({ search, onSearchChange }: HeroProps) => {
               fontStyle: "bold",
             }}
           >
-            Find{" "}
+            Find
             <span className="bg-gradient-to-r from-[#D6C7FF] to-[#AB8BFF] bg-clip-text text-transparent">
               Movies
-            </span>{" "}
+            </span>
             You'll Enjoy
             <br />
             Without the Hassle
