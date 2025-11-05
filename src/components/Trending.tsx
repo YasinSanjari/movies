@@ -1,10 +1,12 @@
 import { Box, Typography, Stack } from "@mui/material";
+import { useRef } from "react";
 
 type TrendingProps = {
   movies: Array<{ id: number; poster_path?: string; title: string }>;
 };
 
 const Trending = ({ movies }: TrendingProps) => {
+  const moviesRef = useRef<HTMLDivElement | null>(null);
   if (!movies?.length) return null;
   const top = movies.slice(0, 5);
   return (
@@ -13,7 +15,7 @@ const Trending = ({ movies }: TrendingProps) => {
         component="h2"
         className="text-white font-semibold mb-8"
         sx={{
-          fontSize: {md:"30px", xs: "20px", sm: "22px" },
+          fontSize: { md: "30px", xs: "20px", sm: "22px" },
           fontFamily: '"DM Sans", sans-serif',
           fontWeight: 700,
           fontStyle: "bold",
@@ -23,11 +25,13 @@ const Trending = ({ movies }: TrendingProps) => {
         Trending
       </Typography>
       <Stack
+        ref={moviesRef}
         direction="row"
         spacing={2.5}
         className="w-full"
         sx={{
-          overflow: "hidden",
+          overflowX: "auto",
+          overflowY: "hidden",
           "&::-webkit-scrollbar": { display: "none" },
           scrollbarWidth: "none",
         }}

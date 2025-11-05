@@ -1,15 +1,32 @@
 import { IconButton, Stack, Typography } from "@mui/material";
 import arrow from "../assets/arrow.svg";
+import type { RefObject } from "react";
 
 type PagerProps = {
   page: number;
   totalPages: number;
   onChange: (page: number) => void;
+  moviesRef: RefObject<HTMLDivElement | null>;
 };
 
-const Pager = ({ page, totalPages, onChange }: PagerProps) => {
+const Pager = ({ page, totalPages, onChange, moviesRef }: PagerProps) => {
   const canPrev = page > 1;
   const canNext = page < totalPages;
+
+  const handlePrev = () => {
+    if (canPrev) {
+      onChange(page - 1);
+      moviesRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleNext = () => {
+    if (canNext) {
+      onChange(page + 1);
+      moviesRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <Stack
       direction="row"
@@ -22,13 +39,14 @@ const Pager = ({ page, totalPages, onChange }: PagerProps) => {
       <IconButton
         aria-label="Previous page"
         disabled={!canPrev}
-        onClick={() => canPrev && onChange(page - 1)}
+        onClick={handlePrev}
         sx={{
-          opacity: !canPrev ? 0 : 1,
+          opacity: !canPrev ? 0.3 : 1,
           cursor: !canPrev ? "not-allowed" : "pointer",
+          transition: "opacity 0.2s ease",
         }}
       >
-        <img src={arrow} alt="next" className="" />
+        <img src={arrow} alt="previous" />
       </IconButton>
 
       <Typography color="#cecefb" fontWeight={600}>
@@ -39,7 +57,12 @@ const Pager = ({ page, totalPages, onChange }: PagerProps) => {
       <IconButton
         aria-label="Next page"
         disabled={!canNext}
-        onClick={() => canNext && onChange(page + 1)}
+        onClick={handleNext}
+        sx={{
+          opacity: !canNext ? 0.3 : 1,
+          cursor: !canNext ? "not-allowed" : "pointer",
+          transition: "opacity 0.2s ease",
+        }}
       >
         <img src={arrow} alt="next" className="rotate-180" />
       </IconButton>

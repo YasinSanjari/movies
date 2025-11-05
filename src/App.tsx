@@ -5,7 +5,7 @@ import {
   CircularProgress,
   Alert,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import type { MoviesResponse, Movie } from "./types/tmdb";
 import useMovies from "./hooks/use-movies";
 import Hero from "./components/Hero";
@@ -17,6 +17,7 @@ import MovieModal from "./components/movie/MovieModal";
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
+  const moviesRef = useRef<HTMLDivElement>(null);
   const {
     data: movies,
     isLoading,
@@ -37,7 +38,7 @@ function App() {
           />
         )}
 
-        <Box component="section" className="space-y-9">
+        <Box component="section" ref={moviesRef} className="space-y-9">
           <Typography
             component="h2"
             className="text-white font-semibold"
@@ -81,6 +82,7 @@ function App() {
                   500
                 )}
                 onChange={setPage}
+                moviesRef={moviesRef}
               />
             )}
         </Box>
